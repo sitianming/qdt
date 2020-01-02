@@ -8,7 +8,7 @@ const state = {
   avatar: '',
   introduction: '',
   roles: [],
-  isDefault: false,   // 是否使用默认密码
+  isDefault: false // 是否使用默认密码
 }
 
 const mutations = {
@@ -25,12 +25,12 @@ const mutations = {
     state.avatar = avatar
   },
   SET_ROLES: (state, roles) => {
-    if(roles==9){
-      state.roles = ["admin"]
-    }else if(roles==1){
-      state.roles = ["editor"]
-    }else{
-      state.roles = ["visitor"]
+    if (roles == 9) {
+      state.roles = ['admin']
+    } else if (roles == 1) {
+      state.roles = ['editor']
+    } else {
+      state.roles = ['visitor']
     }
   },
   SET_DEFAULT: (state, isDefault) => {
@@ -44,7 +44,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ userName: username.trim(), passwd: password }).then(response => {
-        const { token,userRole,isDefault,nickName } = response
+        const { token, userRole, isDefault, nickName } = response
         commit('SET_TOKEN', token)
         // commit('SET_ROLES', userRole)
         commit('SET_NAME', nickName)

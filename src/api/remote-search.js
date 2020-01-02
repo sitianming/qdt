@@ -15,7 +15,7 @@ export function transactionList(query) {
   //   params: query
   // })
 
-  return new Promise((r)=>{
+  return new Promise((r) => {
     r({
       code: 20000,
       data: {

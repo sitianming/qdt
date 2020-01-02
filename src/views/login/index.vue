@@ -168,10 +168,10 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then((isDefault) => {
-              if(isDefault){
+              if (isDefault) {
                 // 用户使用默认密码，跳转到重置密码
                 this.$router.push({ path: '/reset', query: this.otherQuery })
-              }else{
+              } else {
                 this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               }
               this.loading = false

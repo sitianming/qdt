@@ -1,119 +1,119 @@
 <template>
-    <div class="reset-container">
-        <div>
-            <h2>首次登陆，请重置密码</h2>
-            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="密码" prop="pass">
-                    <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="确认密码" prop="checkPass">
-                    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button class="submit-btn" type="primary" @click="submitForm('ruleForm')">修改</el-button>
-                    <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
-                </el-form-item>
-            </el-form>
-        </div>
+  <div class="reset-container">
+    <div>
+      <h2>首次登陆，请重置密码</h2>
+      <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="密码" prop="pass">
+          <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input v-model="ruleForm.checkPass" type="password" autocomplete="off" />
+        </el-form-item>
+        <el-form-item>
+          <el-button class="submit-btn" type="primary" @click="submitForm('ruleForm')">修改</el-button>
+          <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
+        </el-form-item>
+      </el-form>
     </div>
+  </div>
 </template>
 
 <script>
 
-import {reset} from '@/api/user'
+import { reset } from '@/api/user'
 
 export default {
-    data() {
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('年龄不能为空'));
-        }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须年满18岁'));
-            } else {
-              callback();
-            }
-          }
-        }, 1000);
-      };
-      var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
+  data() {
+    var checkAge = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('年龄不能为空'))
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('请输入数字值'))
         } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
-          }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
-      return {
-        ruleForm: {
-          pass: '',
-          checkPass: '',
-          age: ''
-        },
-        rules: {
-          pass: [
-            { validator: validatePass, trigger: 'blur' },
-            { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' },
-            { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
-          ],
-          age: [
-            { validator: checkAge, trigger: 'blur' }
-          ]
-        },
-        redirect: undefined,
-        otherQuery: {}
-      };
-    },
-    // watch: {
-    //     $route: {
-    //         handler: function(route) {
-    //             const query = route.query
-    //             if (query) {
-    //                 this.redirect = query.redirect
-    //                 this.otherQuery = this.getOtherQuery(query)
-    //             }
-    //         },
-    //         immediate: true
-    //     }
-    // },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            // 调用修改密码api
-            reset({passwd: this.ruleForm.pass})
-            .then(()=>{
-               this.$router.push({ path: this.redirect || '/', query: this.otherQuery }) 
-            })
+          if (value < 18) {
+            callback(new Error('必须年满18岁'))
           } else {
-            console.log('error submit!!');
-            return false;
+            callback()
           }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+        }
+      }, 1000)
+    }
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        if (this.ruleForm.checkPass !== '') {
+          this.$refs.ruleForm.validateField('checkPass')
+        }
+        callback()
       }
     }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      ruleForm: {
+        pass: '',
+        checkPass: '',
+        age: ''
+      },
+      rules: {
+        pass: [
+          { validator: validatePass, trigger: 'blur' },
+          { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
+        ],
+        checkPass: [
+          { validator: validatePass2, trigger: 'blur' },
+          { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
+        ],
+        age: [
+          { validator: checkAge, trigger: 'blur' }
+        ]
+      },
+      redirect: undefined,
+      otherQuery: {}
+    }
+  },
+  // watch: {
+  //     $route: {
+  //         handler: function(route) {
+  //             const query = route.query
+  //             if (query) {
+  //                 this.redirect = query.redirect
+  //                 this.otherQuery = this.getOtherQuery(query)
+  //             }
+  //         },
+  //         immediate: true
+  //     }
+  // },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 调用修改密码api
+          reset({ passwd: this.ruleForm.pass })
+            .then(() => {
+              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+            })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>
