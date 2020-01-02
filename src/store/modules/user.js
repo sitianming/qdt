@@ -7,7 +7,8 @@ const state = {
   name: '',
   avatar: '',
   introduction: '',
-  roles: []
+  roles: [],
+  isDefault: false,   // 是否使用默认密码
 }
 
 const mutations = {
@@ -24,7 +25,16 @@ const mutations = {
     state.avatar = avatar
   },
   SET_ROLES: (state, roles) => {
-    state.roles = roles
+    if(roles==9){
+      state.roles = ["admin"]
+    }else if(roles==1){
+      state.roles = ["editor"]
+    }else{
+      state.roles = ["visitor"]
+    }
+  },
+  SET_DEFAULT: (state, isDefault) => {
+    state.isDefault = isDefault
   }
 }
 
@@ -33,11 +43,14 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
+      login({ userName: username.trim(), passwd: password }).then(response => {
+        const { token,userRole,isDefault,nickName } = response
+        commit('SET_TOKEN', token)
+        // commit('SET_ROLES', userRole)
+        commit('SET_NAME', nickName)
+        commit('SET_DEFAULT', isDefault)
+        setToken(token)
+        resolve(isDefault)
       }).catch(error => {
         reject(error)
       })
@@ -54,17 +67,21 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { roles, name, avatar, introduction } = data
+        commit('SET_ROLES', 9)
+        commit('SET_NAME', 'fake name')
+        commit('SET_DEFAULT', false)
 
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+        // const { roles, name, avatar, introduction } = data
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
+        // // roles must be a non-empty array
+        // if (!roles || roles.length <= 0) {
+        //   reject('getInfo: roles must be a non-null array!')
+        // }
+
+        // commit('SET_ROLES', roles)
+        // commit('SET_NAME', name)
+        // commit('SET_AVATAR', avatar)
+        // commit('SET_INTRODUCTION', introduction)
         resolve(data)
       }).catch(error => {
         reject(error)
