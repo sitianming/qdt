@@ -49,7 +49,7 @@ export function logout() {
   //   url: '/user/logout',
   //   method: 'post'
   // })
-  return new Promise((r)=>{
+  return new Promise((r) => {
     r()
   })
 }

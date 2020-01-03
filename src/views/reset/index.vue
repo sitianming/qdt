@@ -97,7 +97,7 @@ export default {
   //         immediate: true
   //     }
   // },
-  computed:{
+  computed: {
     ...mapGetters(['name'])
   },
   methods: {

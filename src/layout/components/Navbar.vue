@@ -22,7 +22,7 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <!-- <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar"> -->
-          <h3>{{name}}</h3>
+          <h3>{{ name }}</h3>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -39,7 +39,7 @@
             <el-dropdown-item>Docs</el-dropdown-item>
           </a> -->
           <!-- <el-dropdown-item divided> -->
-          <el-dropdown-item >
+          <el-dropdown-item>
             <span style="display:block;" @click="logout">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>

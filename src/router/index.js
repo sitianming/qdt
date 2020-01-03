@@ -78,7 +78,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/tasks',
+    redirect: '/tasks'
     // children: [
     //   {
     //     path: 'dashboard',
@@ -87,7 +87,7 @@ export const constantRoutes = [
     //     meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
     //   }
     // ]
-  },
+  }
   // {
   //   path: '/documentation',
   //   component: Layout,
@@ -139,12 +139,12 @@ export const asyncRoutes = [
     path: '/tasks',
     component: Layout,
     redirect: '/tasks/list',
-    //alwaysShow: true, // will always show the root menu
+    // alwaysShow: true, // will always show the root menu
     name: 'tasks',
     meta: {
       title: '任务',
       icon: 'lock',
-      roles: ['admin', 'editor'] 
+      roles: ['admin', 'editor']
     },
     children: [
       {
@@ -154,7 +154,7 @@ export const asyncRoutes = [
         meta: {
           title: '任务列表',
           icon: 'lock',
-          roles: ['admin', 'editor'] 
+          roles: ['admin', 'editor']
         }
       },
       {
@@ -165,7 +165,7 @@ export const asyncRoutes = [
         meta: {
           title: '任务详情',
           icon: 'lock',
-          roles: ['admin', 'editor'] 
+          roles: ['admin', 'editor']
         }
       },
       {
@@ -176,20 +176,20 @@ export const asyncRoutes = [
         meta: {
           title: '交易记录',
           icon: 'lock',
-          roles: ['admin', 'editor'] 
+          roles: ['admin', 'editor']
         }
-      },
+      }
     ]
   },
   {
     path: '/accounts',
     component: Layout,
-    //alwaysShow: true, // will always show the root menu
+    // alwaysShow: true, // will always show the root menu
     name: 'accounts',
     meta: {
       title: '账户',
       icon: 'lock',
-      roles: ['admin', 'editor'] 
+      roles: ['admin', 'editor']
     },
     children: [
       {
@@ -199,9 +199,9 @@ export const asyncRoutes = [
         meta: {
           title: '账户信息',
           icon: 'lock',
-          roles: ['admin', 'editor'] 
+          roles: ['admin', 'editor']
         }
-      },
+      }
     ]
   }
 ]
