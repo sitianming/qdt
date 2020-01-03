@@ -153,7 +153,7 @@ export const asyncRoutes = [
         name: 'list',
         meta: {
           title: '任务列表',
-          icon: 'lock',
+          icon: 'list',
           roles: ['admin', 'editor']
         }
       },
@@ -198,7 +198,7 @@ export const asyncRoutes = [
         name: 'all',
         meta: {
           title: '账户信息',
-          icon: 'lock',
+          icon: 'money',
           roles: ['admin', 'editor']
         }
       }
