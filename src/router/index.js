@@ -158,7 +158,7 @@ export const asyncRoutes = [
         }
       },
       {
-        path: 'details',
+        path: 'list/:taskId',
         hidden: true,
         component: () => import('@/views/tasks/details'),
         name: 'details',
@@ -169,7 +169,7 @@ export const asyncRoutes = [
         }
       },
       {
-        path: 'records',
+        path: 'list/:taskId/records',
         hidden: true,
         component: () => import('@/views/tasks/records'),
         name: 'records',
