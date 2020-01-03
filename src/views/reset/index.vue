@@ -3,7 +3,10 @@
     <div>
       <h2>首次登陆，请重置密码</h2>
       <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="密码" prop="pass">
+        <!-- <el-form-item label="用户名">
+          <span>{{name}}</span>
+        </el-form-item> -->
+        <el-form-item label="新密码" prop="pass">
           <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
         </el-form-item>
         <el-form-item label="确认密码" prop="checkPass">
@@ -19,7 +22,7 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex'
 import { reset } from '@/api/user'
 
 export default {
@@ -94,6 +97,9 @@ export default {
   //         immediate: true
   //     }
   // },
+  computed:{
+    ...mapGetters(['name'])
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

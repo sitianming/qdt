@@ -25,18 +25,20 @@ const mutations = {
     state.avatar = avatar
   },
   SET_ROLES: (state, roles) => {
-    if (roles == 9) {
-      state.roles = ['admin']
-    } else if (roles == 1) {
-      state.roles = ['editor']
-    } else {
-      state.roles = ['visitor']
-    }
+    state.roles = roles
   },
   SET_DEFAULT: (state, isDefault) => {
     state.isDefault = isDefault
   }
 }
+
+// if (roles == 9) {
+//   state.roles = ['admin']
+// } else if (roles == 1) {
+//   state.roles = ['editor']
+// } else {
+//   state.roles = ['visitor']
+// }
 
 const actions = {
   // user login
@@ -67,7 +69,7 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        commit('SET_ROLES', 9)
+        commit('SET_ROLES', ['admin'])
         commit('SET_NAME', 'fake name')
         commit('SET_DEFAULT', false)
 
