@@ -35,6 +35,7 @@
         label="等值BTC">
       </el-table-column>
       <el-table-column
+        min-width="90"
         prop="toUSDT"
         label="等值USDT">
       </el-table-column>
@@ -188,10 +189,8 @@ export default {
 
     span {
       line-height: 24px;
-
-      &:last-of-type {
-        margin-left: 50px;
-      }
+      display: inline-block;
+      margin-right: 50px;
     }
 
     i {

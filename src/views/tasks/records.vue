@@ -1,6 +1,6 @@
 <template>
   <div class="right-wrap">
-    <h3>交易记录</h3>
+    <h3>交易记录<go-back></go-back></h3>
     <ul>
       <li>
         <b>任务名称：</b><span>{{row.taskName}}</span>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-
+import GoBack from '@/components/GoBack/index'
 const data = {
   "total": 10000,        // 总共条数
   "pageIndex": 1,
@@ -117,6 +117,9 @@ const data = {
 }
 
 export default {
+  components:{
+    GoBack
+  },
   data(){
     return {
       row: {...this.$route.query},
@@ -131,6 +134,10 @@ export default {
 <style lang="scss" scoped>
   .right-wrap {
     padding: 20px;
+
+    h3 {
+      position: relative;
+    }
 
     ul {
       margin: 0;
