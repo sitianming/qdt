@@ -3,16 +3,18 @@
     <h3>任务列表</h3>
     <el-table
       :data="list"
-      style="width: 100%">
+      style="width: 100%"
+      @row-click="clickRow"  
+    >
       <el-table-column prop="taskName" label="任务名称"></el-table-column>
       <el-table-column prop="exchangeName" label="交易所"></el-table-column>
       <el-table-column prop="pairName" label="交易对"></el-table-column>
       <el-table-column prop="state" label="状态"></el-table-column>
-      <el-table-column label="查看">
+      <!-- <el-table-column label="查看">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
   </div>
 </template>
@@ -41,6 +43,7 @@ const list = [
             "state": "Stopped",
         },
       ]
+    
 export default {
   data(){
     return {
@@ -48,7 +51,7 @@ export default {
     }
   },
   methods:{
-    handleClick(row){
+    clickRow(row){
       this.$router.push({ path: `/tasks/list/${row.taskId}`, query:{...row}})
     }
   }
@@ -58,5 +61,9 @@ export default {
 <style lang="scss" scoped>
   .right-wrap {
     padding: 20px;
+
+    & >>> .el-table__row {
+      cursor: pointer;
+    }
   }
 </style>

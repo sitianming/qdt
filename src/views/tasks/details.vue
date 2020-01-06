@@ -2,6 +2,7 @@
   <div class="right-wrap">
     <div>
       <div class="main-info">
+        <go-back></go-back>
         <ul>
           <li>
             <b>任务名称：</b><span>{{data.taskName}}</span>
@@ -53,7 +54,7 @@
     </div>
     <div class="task-state">
       <h4>任务状态</h4>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName">
         <el-tab-pane label="基本状态" name="1">
           <ul>
             <li v-for="(v,k) in data.strategyParams" :key="k">
@@ -95,6 +96,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import GoBack from '@/components/GoBack/index'
 const data =  {
         "taskName": "ae_pro_2_au",
         "taskId": 1,
@@ -165,6 +167,7 @@ const data =  {
     }
 
 export default {
+  components:{GoBack},
   data(){
     
     var min0max1 = (rule, value, callback) => {
@@ -253,7 +256,8 @@ export default {
     }
 
     & >>> .update-wrap {
-      width: 500px;
+      width: 100%;
+      max-width: 500px;
 
       .submit-btn {
         width: 120px;
@@ -262,6 +266,7 @@ export default {
   }
   .main-info {
     margin-bottom: 20px;
+    position: relative;
 
     ul {
       list-style: none;
@@ -299,7 +304,7 @@ export default {
     }
 
     h5 {
-      margin: 10px 0;
+      margin: 10px 0 0 11px;
       font-weight: normal;
       color: #777;
     }
