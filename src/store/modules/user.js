@@ -8,7 +8,8 @@ const state = {
   avatar: '',
   introduction: '',
   roles: [],
-  isDefault: false // 是否使用默认密码
+  isDefault: false, // 是否使用默认密码
+  accounts:[]
 }
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   },
   SET_DEFAULT: (state, isDefault) => {
     state.isDefault = isDefault
+  },
+  SET_ACCOUNTS: (state, accounts) => {
+    state.accounts = accounts
   }
 }
 
@@ -49,8 +53,8 @@ const actions = {
         const { token, userRole, isDefault, nickName } = response
         commit('SET_TOKEN', token)
         // commit('SET_ROLES', userRole)
-        commit('SET_NAME', nickName)
-        commit('SET_DEFAULT', isDefault)
+        // commit('SET_NAME', nickName)
+        // commit('SET_DEFAULT', isDefault)
         setToken(token)
         resolve(isDefault)
       }).catch(error => {
@@ -63,28 +67,27 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
+        const { nickName,isDefault,role,accounts } = response
+        if (!nickName) {
           reject('Verification failed, please Login again.')
         }
-
-        commit('SET_ROLES', ['admin'])
-        commit('SET_NAME', 'fake name')
-        commit('SET_DEFAULT', false)
-
-        // const { roles, name, avatar, introduction } = data
-
-        // // roles must be a non-empty array
-        // if (!roles || roles.length <= 0) {
-        //   reject('getInfo: roles must be a non-null array!')
-        // }
-
-        // commit('SET_ROLES', roles)
-        // commit('SET_NAME', name)
+        let roles = []
+        if (role == 9) {
+          roles = ['admin']
+        } else if (role == 1) {
+          roles = ['editor']
+        } else {
+          roles = ['visitor']
+        }
+        commit('SET_ROLES', roles)
+        commit('SET_NAME', nickName)
+        commit('SET_DEFAULT', isDefault)
+        commit('SET_ACCOUNTS',accounts)
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+        resolve({
+          role:role
+        })
       }).catch(error => {
         reject(error)
       })

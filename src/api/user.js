@@ -26,22 +26,22 @@ export function reset({ passwd }) {
 }
 
 export function getInfo(token) {
-  // return request({
-  //   url: '/user/info',
-  //   method: 'post',
-  // })
-
-  return new Promise((r) => {
-    r({
-      data: {
-        userRole: ['admin'],
-        isDefault: false,
-        nickName: 'fake name',
-        roles: ['admin'],
-        name: 'fake name'
-      }
-    })
+  return request({
+    url: '/user/info',
+    method: 'post',
   })
+
+  // return new Promise((r) => {
+  //   r({
+  //     data: {
+  //       userRole: ['admin'],
+  //       isDefault: false,
+  //       nickName: 'fake name',
+  //       roles: ['admin'],
+  //       name: 'fake name'
+  //     }
+  //   })
+  // })
 }
 
 export function logout() {

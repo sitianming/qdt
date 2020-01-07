@@ -2,6 +2,7 @@
   <div class="right-wrap">
     <h3>任务列表</h3>
     <el-table
+      v-loading="loading"
       :data="list"
       style="width: 100%"
       @row-click="clickRow"  
@@ -20,39 +21,50 @@
 </template>
 
 <script>
-const list = [
-        {
-            "taskId": 1,
-            "taskName": "ae_pro_2_au",      // 任务名称
-            "exchangeName": "Ace",          // 交易所名称
-            "pairName": "ACEX/USDT",        // 交易对名称 
-            "state": "Running",             // 运行状态(Wating, Running, Stopped)
-        },
-        {
-            "taskId": 2,
-            "taskName": "ae_pro_2_au2", 
-            "exchangeName": "Bce", 
-            "pairName": "ACEX/USDT", 
-            "state": "Wating",
-        },
-        {
-            "taskId": 3,
-            "taskName": "ae_pro_2_au3", 
-            "exchangeName": "Cce", 
-            "pairName": "ACEX/USDT", 
-            "state": "Stopped",
-        },
-      ]
+// const list = [
+//         {
+//             "taskId": 1,
+//             "taskName": "ae_pro_2_au",      // 任务名称
+//             "exchangeName": "Ace",          // 交易所名称
+//             "pairName": "ACEX/USDT",        // 交易对名称 
+//             "state": "Running",             // 运行状态(Wating, Running, Stopped)
+//         },
+//         {
+//             "taskId": 2,
+//             "taskName": "ae_pro_2_au2", 
+//             "exchangeName": "Bce", 
+//             "pairName": "ACEX/USDT", 
+//             "state": "Wating",
+//         },
+//         {
+//             "taskId": 3,
+//             "taskName": "ae_pro_2_au3", 
+//             "exchangeName": "Cce", 
+//             "pairName": "ACEX/USDT", 
+//             "state": "Stopped",
+//         },
+//       ]
+import {getList} from '@/api/tasks'
     
 export default {
   data(){
     return {
-      list
+      list:[],
+      loading: true
     }
+  },
+  created(){
+    this.getList()
   },
   methods:{
     clickRow(row){
       this.$router.push({ path: `/tasks/list/${row.taskId}`, query:{...row}})
+    },
+    getList(){
+      getList().then(data=>{
+        this.list = data.list
+        this.loading = false
+      })
     }
   }
 }
